@@ -1,0 +1,16 @@
+cp -a -u -v ../J0006+1834.txt ./
+cp -a -u -v ../J0034-0721.txt ./
+cp -a -u -v ../J0206-4028.txt ./
+cp -a -u -v ../J0437-4715.txt ./
+cp -a -u -v ../J0857-4424.txt ./
+cp -a -u -v ../J0900-3144.txt ./
+cp -a -u -v ../J0941-39.txt ./
+cp -a -u -v ../J1003-4747.txt ./
+cp -a -u -v ../J1224-6407.txt ./
+cp -a -u -v ../J1300+1240.txt ./
+cp -a -u -v ../J1359-6038.txt ./
+cp -a -u -v ../J1453-6413.txt ./
+cp -a -u -v ../J1637-4553.txt ./
+cp -a -u -v ../J1703-4851.txt ./
+cp -a -u -v ../J2053-7200.txt ./
+cp -a -u -v ../J2317+1439.txt ./

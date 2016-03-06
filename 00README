@@ -1,0 +1,19 @@
+Datasets
+
+	data.csiro.au
+		interrogated to determine data sets to use
+		Pulsar data
+
+	atnf.csiro.au/people/pulsar/psrcat/
+		psrcat is the pulsar catalogue with the meta data
+	atnf.csiro.au/people/pulsar/psrcat/download.html
+		http://www.atnf.csiro.au/people/pulsar/psrcat/downloads/psrcat_pkg.tar.gz
+		tarball contains psrcat.db
+			P0 is the pulsar period
+			RA
+			Dec
+			DIST_DM is the distance to the pulsar (though there are many methods that give different distances)
+
+	pulseatparkes.atnf.csiro.au/database.php
+		contains data pre-processed into 8 frequency channels
+		used the first channel for the pulsar shape
