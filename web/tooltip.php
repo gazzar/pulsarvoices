@@ -7,18 +7,18 @@ include("config.php");
     <meta charset="UTF-8">
     <title>PULSAR VOICE</title>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
-
   <style>
   html, body {
   margin: 0;
-  height: 1400;
-  width:1200;
+  height: 1000;
+  width:3200;
   font-family: "roboto", helvetica;
   position: relative;
   height: 100%;
   font-size: 100%;
   line-height: 1.5;
   color: #444;
+  
 }
 h2 {
   margin: 1.75em 0 0;
@@ -28,8 +28,6 @@ h2 {
 h3 { font-size: 1.3em; }
 .sky {
   height: 100%;
-   width: 100%;
-   background-repeat:repeat-y;
   background: #007fd5;
   position: relative;
   overflow: hidden;
@@ -38,7 +36,8 @@ h3 { font-size: 1.3em; }
   -o-animation: sky_background 50s ease-out infinite;
   -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
-  -o-transform: translate3d(0, 0, 0)
+  -o-transform: translate3d(0, 0, 0);
+  
 }
 
 .moon {
@@ -56,19 +55,7 @@ h3 { font-size: 1.3em; }
   -o-transform: translate3d(0, 0, 0)
 }
 
-.sun {
-  background: url("images/moon.png");
-  position: absolute;
-  left: 0;
-  height: 100%;
-  width: 300%;
-  -webkit-animation: moon 50s linear infinite;
-  -moz-animation: moon 50s linear infinite;
-  -o-animation: moon 50s linear infinite;
-  -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
-  -o-transform: translate3d(0, 0, 0)
-}
+
 
 .clouds_one {
   background: url("images/cloud_one.png");
@@ -241,53 +228,18 @@ h3 { font-size: 1.3em; }
 
 
 .gps_ring {
-    
-    -webkit-border-radius: 30px;
-    height: 30px;
-    width: 30px;
-    position: absolute;
-    -webkit-animation: pulsate 10s ease-out;
-    -webkit-animation-iteration-count: infinite; 
-    opacity: 0.0
-}
-
-.gps_ring2 {
-    border: 5px solid #FF0000;
-    -webkit-border-radius: 30px;
-    height: 20px;
-    width: 20px;
-    position: absolute;
-    right:200px;
-    top:414px;
-    -webkit-animation: pulsate 1s ease-out;
-    -webkit-animation-iteration-count: infinite; 
-    opacity: 0.0
-}
-
-.gps_ring3 {
-    border: 5px solid #0000FF;
-    -webkit-border-radius: 30px;
-    height: 50px;
-    width: 50px;
-    position: absolute;
-    right:300px;
-    top:214px;
-    -webkit-animation: pulsate 2s ease-out;
-    -webkit-animation-iteration-count: infinite; 
-    opacity: 0.0
-}
-
-.gps_ring4 {
-    border: 5px solid #FF3333;
-    -webkit-border-radius: 30px;
-    height: 50px;
-    width: 50px;
-    position: absolute;
-    right:400px;
-    top:300px;
-    -webkit-animation: pulsate 1s ease-out;
-    -webkit-animation-iteration-count: infinite; 
-    opacity: 0.0
+  background: transparent;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  
+  -webkit-animation: pulse 1s ease-out;
+  -moz-animation: pulse 1s ease-out;
+  animation: pulse 1s ease-out;
+  -webkit-animation-iteration-count: infinite;
+  -moz-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  position: absolute;
+  z-index: 1;
 }
 
 @-webkit-keyframes pulsate {
@@ -295,12 +247,27 @@ h3 { font-size: 1.3em; }
     50% {opacity: 1.0;}
     100% {-webkit-transform: scale(1.2, 1.2); opacity: 0.0;}
 }
-
+.clicked {
+  background-color: yellow;
+}
+.bins{
+background-color:none;
+}
  
     </style>
+	 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+	
+        <script src="js/prefixfree.min.js"></script>
 
-<script src="js/prefixfree.min.js"></script>
-
+    <script>
+	 function aaa(ss) {
+               
+				 $(".bins").css("background-color", "");
+				  $("."+ss).css("background-color", "white");
+              }
+	</script>
+ 
+  
   <div class="sky">
     <div class="moon"></div>
     <div class="clouds_one"></div>
@@ -310,7 +277,13 @@ h3 { font-size: 1.3em; }
   </div>
   
     <div id="state" class="grid_4 alpha">
-             
+	
+		<div class="gps_ring2" style=" left:731px; top:185px;">  <a id="pulsarspecial" href="#" title="" ><img src="images/pulse.png"  ></a>
+		   <audio id="beep-one"  preload="auto">
+				<source src="audio/a2.mp3"></source>
+ 				</audio>
+				</div>	
+              
 			<?php
 			$sel	=	"SELECT * FROM final_pulsar";
 			$res	=	mysql_query($sel) or die(mysql_error());
@@ -322,17 +295,17 @@ h3 { font-size: 1.3em; }
 			   <?php }	else  if($row['kPc']<=10){?> border: 5px solid #0000FF;
 			  <?php }	else  if($row['kPc']<=20){?> border: 5px solid #FFFF00;
 			  <?php }else  if($row['kPc']<=30){?> border: 5px solid #FF0000;
-			  <?php }else{ ?> border: 5px solid #00FF00;<?php }?>" onMouseOver="startTone(<?php echo $row['playHz'];?>)" onMouseOut="stopTone()">  <a id="tooltip-2" title="<?php echo $row['label'];?>" href="#" > </a> </div>
+			  <?php }else{ ?> border: 5px solid #00FF00;<?php }?>" onMouseOver="startTone(<?php echo $row['playHz'];?>)" onMouseOut="stopTone()">   <a id="tooltip-2" 
+			  title="Pulsar ID: <?php echo $row['Label'];?>&#13;Frequency: <?php if($row['playHz']>0){ echo $row['f']."/s (".$row['playHz']." Hz)";}else{echo 'N/A';}?>&#13;Distance: <?php echo $row['kPc'];?>&#13;Location: <?php echo number_format($row['theta'],2).",".number_format($row['dec'],2);?>" href="#" class=" bins <?php if($row['f']>0) echo number_format($row['f']);?>" <?php if($row['f']>0){?>onClick="return aaa(<?php echo number_format($row['f']);?>);" <?php }?> onDblClick="return bbb(<?php echo $row['f'];?>);" style="text-decoration:none; padding:0;    margin:0;"  > <?php if($row['f']>0) ?>&#x25CE;</a> </div>			 
+  
 			<?php
 			}}
 			?>	
-          
             </div>
-
-    
-    
-	  <div><h2 align="center">PULSAR VOICE</h2></div>
-	  <table width="100%" border="0">
+    <div>
+	
+	 <div><h2 align="center">PULSAR VOICE</h2></div>
+      <table width="100%" border="0">
         <tr>
           <th width="61%" scope="col">Color represents distance from Earth </th>
           <th width="39%" scope="col">Light Blue : 0- 5 kPc <br>
@@ -347,26 +320,45 @@ h3 { font-size: 1.3em; }
           <td>&nbsp;</td>
         </tr>
       </table>
-	
+    </div>
+    
+    
   </body>
 </html>
-
-
-
-<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script> 
-<script>
-
-var beepOne = $("#beep-one")[0];
-$(".gps_ring ")
+	<script>var beepOne = $("#beep-one")[0];
+$(".gps_ring2")
 	.mouseenter(function() {
 		beepOne.play();
 	});
 	
+	$( "#pulsarspecial" ).tooltip({ content: '<img src="images/img1.png" />' });
+	
+	</script>
+	
+<script language="javascript">
+document.onmousedown=disableclick;
+status="";
+function disableclick(event)
+{
+  if(event.button==2)
+   {
+     alert(status);
+     return false;    
+   }
+}
+
+			  
 </script>
 
 <script type="text/javascript">
+
+// Example showing how to produce a tone using Web Audio API.
+// Load the file webaudio_tools.js before loading this file.
+// This code will write to a DIV with an id="soundStatus".
 var oscillator;
 var amp;
+
+// Create an oscillator and an amplifier.
 function initAudio()
 {
 	// Use audioContext from webaudio_tools.js
